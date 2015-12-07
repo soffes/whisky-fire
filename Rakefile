@@ -37,14 +37,25 @@ task :default => :install
 
 desc 'Clean up'
 task :clean do
-  system 'rm -rf Nick-Original.mp4 Nick.mp4 WhiskyFire.xcarchive'
+  system 'rm -rf *.mp4 *.part WhiskyFire.xcarchive'
 end
 
 private
 
 def check_program(name)
   if `which #{name}`.chomp.length == 0
+    # Try to install with homebrew
+    if has_homebrew?
+      puts "Installing #{name} from Homebrew…"
+      `brew install #{name}`
+      return if `which #{name}`.chomp.length > 0
+    end
+
     puts "\nYou need to install #{name} first. You can install it using Homebrew with the following command:\n\n    brew install #{name}\n\nIf you don’t have Homebrew, visit http://brew.sh for instructions.\n\n"
     abort
   end
+end
+
+def has_homebrew?
+  `which brew`.chomp.length > 0
 end
