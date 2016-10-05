@@ -11,7 +11,7 @@ import AVKit
 
 /// Player view with disabled keyboard shortcuts. This is a screen saver after all.
 class PlayerView: AVPlayerView {
-	override func keyDown(theEvent: NSEvent) {
+	override func keyDown(with theEvent: NSEvent) {
 		// Do nothing
 	}
 }
